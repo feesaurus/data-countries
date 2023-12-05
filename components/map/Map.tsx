@@ -1,10 +1,39 @@
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, Popup, useMapEvent, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+import L from "leaflet";
+import { useEffect } from 'react';
 
-const Map = (props: any) => {
-  const { position, zoom } = props;
+function ResetCenterView(props: any) {
+  const { selectPosition } = props;
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectPosition) {
+      map.setView(
+        L.latLng(selectPosition[0], selectPosition[1]),
+        map.getZoom(),
+        {
+          animate: true
+        }
+      )
+    }
+  }, [selectPosition]);
+
+  return null;
+}
+
+export default function Map(props: any) {
+  const { position, marker, zoom, name } = props;
+
+  const MapAutoZoom = () => {
+    const data = position;
+    const map = useMapEvent('click', () => {
+      map.setView(data, map.getZoom())
+    })
+    return null
+  }
 
   return (
     <MapContainer
@@ -13,16 +42,19 @@ const Map = (props: any) => {
       zoom={zoom}
       scrollWheelZoom={false}
     >
+      <MapAutoZoom />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      {
+        marker.length !== 0 &&
+        <Marker position={marker}>
+          <Popup>
+            {name}
+          </Popup>
+        </Marker>
+      }
+      <ResetCenterView selectPosition={position} />
     </MapContainer>
   );
 };
-
-export default Map;

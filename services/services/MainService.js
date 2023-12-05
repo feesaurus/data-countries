@@ -3,45 +3,45 @@ import axios from "axios";
 const api = `https://restcountries.com/v3.1`;
 
 export async function getAllData() {
-  const response = await axios.get(api + '/all');
-  const data = response.data;
-
-  if (response.status !== 200) {
-    throw new Error('Failed')
-  } else {
+  try {
+    const response = await axios.get(api + '/all');
+    const data = response.data;
     return data
+  } catch (err) {
+    const error = err.response.data.message
   }
 }
 
 export async function getByName(name) {
-  const response = await axios.get(api + '/name' + `/${name}`);
-  const data = response.data;
-
-  if (response.status !== 200) {
-    throw new Error('Failed')
-  } else {
+  try {
+    const response = await axios.get(api + '/name' + `/${name}`);
+    const data = response.data;
     return data
+  } catch (err) {
+    const error = err.response.data.message
   }
 }
 
 export async function getByRegion(region) {
-  const response = await axios.get(api + '/region' + `/${region}`);
-  const data = response.data;
-
-  if (response.status !== 200) {
-    throw new Error('Failed')
-  } else {
-    return data
+  try {
+    const response = await axios.get(api + '/region' + `/${region}`);
+    result.data = response.data;
+    result.status = response.status
+  } catch (err) {
+    result.error = err.response.data.message;
+    result.status = err.response.data.status;
   }
 }
 
 export async function searchByName(search) {
-  const response = await axios.get(api + '/name' + `/${search}` + '?fields=name');
-  const data = response.data;
-
-  if (response.status !== 200) {
-    throw new Error('Failed')
-  } else {
-    return data
+  const result = { data: [],  status: undefined, error: undefined }
+  try {
+    const response = await axios.get(api + '/name' + `/${search}` + '?fields=name');
+    result.data = response.data;
+    result.status = response.status
+  } catch (err) {
+    result.error = err.response.data.message;
+    result.status = err.response.data.status;
   }
+  return result;
 }
