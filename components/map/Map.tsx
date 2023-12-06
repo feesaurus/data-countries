@@ -24,8 +24,14 @@ function ResetCenterView(props: any) {
   return null;
 }
 
-export default function Map(props: any) {
-  const { position, marker, zoom, name } = props;
+interface IMap {
+  onDataChange: any,
+  position: any | [],
+  marker: any | [],
+  zoom: number
+}
+
+const Map: React.FC<IMap> = ({ onDataChange, position, marker, zoom }) => {
 
   const MapAutoZoom = () => {
     const data = position;
@@ -33,6 +39,10 @@ export default function Map(props: any) {
       map.setView(data, map.getZoom())
     })
     return null
+  }
+
+  const onOpenInfo = (e: any) => {
+    onDataChange(true)
   }
 
   return (
@@ -48,13 +58,18 @@ export default function Map(props: any) {
       />
       {
         marker.length !== 0 &&
-        <Marker position={marker}>
-          <Popup>
-            {name}
-          </Popup>
+        <Marker
+          position={marker}
+          eventHandlers={{
+            click: (e) => {
+              onOpenInfo(e)
+            },
+          }}>
         </Marker>
       }
       <ResetCenterView selectPosition={position} />
     </MapContainer>
   );
 };
+
+export default Map
