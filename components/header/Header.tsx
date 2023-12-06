@@ -62,7 +62,7 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
       <div className="sticky top-4 rounded-md bg-[#454545] z-50 h-14 p-3 inset-x-16 flex flex-row">
         <div className="absolute inset-y-0 start-2 flex items-center ps-3 pointer-events-none">
           <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
           </svg>
         </div>
         <input
@@ -75,14 +75,14 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
         />
         <div className="absolute inset-y-0 end-5 flex items-center ps-3">
           <div className="cursor-pointer" onClick={onClear}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4 text-gray-500 dark:text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 text-gray-500 dark:text-gray-400">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
         </div>
       </div>
       {list.length !== 0 && openList &&
-        <div className="sticky rounded-md bg-[#454545] z-50 h-auto p-3 inset-x-16 flex flex-col">
+        <div className="sticky rounded-md bg-[#454545] z-50 h-auto p-3 inset-x-16 flex flex-col max-h-96 overflow-y-auto">
           {
             list.map((item, index) => {
               return (
