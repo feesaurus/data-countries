@@ -55,6 +55,14 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
         open: false,
         dataFull: res[0]
       })
+    } else if (res.length > 1 && e.target.textContent === "United States") {
+      onDataChange({
+        name: res[2].name.common,
+        position: res[2].latlng,
+        zoom: 8,
+        open: false,
+        dataFull: res[2],
+      });
     }
     setOpenList(false);
     setInputValue('')
