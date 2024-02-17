@@ -47,6 +47,7 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
   
   const onSubmit = async (e: any) => {
     const res = await MainService.getByName(e.target.textContent)
+    console.log(e.target.textContent, res)
     if (res.length === 1) {
       onDataChange({
         name: res[0].name.common,
@@ -55,6 +56,14 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
         open: false,
         dataFull: res[0]
       })
+    } else if (res.length > 1 && e.target.textContent === "United States") {
+      onDataChange({
+        name: res[2].name.common,
+        position: res[2].latlng,
+        zoom: 8,
+        open: false,
+        dataFull: res[2],
+      });
     }
     setOpenList(false);
     setInputValue('')
