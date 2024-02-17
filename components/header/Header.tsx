@@ -47,7 +47,6 @@ const Header: React.FC<IHeader> = ({ onDataChange }) => {
   
   const onSubmit = async (e: any) => {
     const res = await MainService.getByName(e.target.textContent)
-    console.log(e.target.textContent, res)
     if (res.length === 1) {
       onDataChange({
         name: res[0].name.common,
