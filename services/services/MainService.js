@@ -13,16 +13,20 @@ export async function getAllData() {
 }
 
 export async function getByName(name) {
+  const result = { list: [],  status: undefined, error: undefined }
   try {
     const response = await axios.get(api + '/name' + `/${name}`);
-    const data = response.data;
-    return data
+    result.list = response.data;
+    result.status = response.status
   } catch (err) {
-    const error = err.response.data.message
+    result.error = err.response.data.message;
+    result.status = err.response.data.status;
   }
+  return result
 }
 
 export async function getByRegion(region) {
+  const result = { data: [],  status: undefined, error: undefined }
   try {
     const response = await axios.get(api + '/region' + `/${region}`);
     result.data = response.data;
@@ -31,10 +35,11 @@ export async function getByRegion(region) {
     result.error = err.response.data.message;
     result.status = err.response.data.status;
   }
+  return result;
 }
 
 export async function searchByName(search) {
-  const result = { data: [],  status: undefined, error: undefined }
+  const result = { data: [],  status: undefined, error: "" }
   try {
     const response = await axios.get(api + '/name' + `/${search}` + '?fields=name');
     result.data = response.data;

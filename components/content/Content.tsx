@@ -41,8 +41,8 @@ const Context: React.FC<IContext> = ({ name, isOpen, isClose, data }) => {
           </div>
           <div className="sticky z-50 px-10 pt-2">
             <div className="flex gap-2">
-              <p className="text-2xl font-semibold">{name}</p>
-              <div className="w-full pt-[12px]">
+              <p className="text-2xl font-semibold whitespace-nowrap w-[fit-content]">{name}</p>
+              <div className="w-full flex align-middle">
                 <Image alt="flag" width={20} height={20} src={data.flags?.svg} />
               </div>
             </div>
